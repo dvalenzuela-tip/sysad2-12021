@@ -1,0 +1,23 @@
+---
+- name: Installation of Apache, PHP packages, and MySQL
+  hosts: ubuntu
+
+  roles:
+    - quiz23roles
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

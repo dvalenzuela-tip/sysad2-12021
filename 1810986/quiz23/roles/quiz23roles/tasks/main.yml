@@ -1,0 +1,45 @@
+---
+# tasks file for roles/quiz23roles
+
+  - name: Installation of Apache
+    apt:
+      name: apache2
+      state: latest
+      update_cache: yes
+
+  - name: Allowing the HTTP Traffic
+    ufw:
+      rule: allow
+      direction: in
+      name: Apache
+
+  - name: Installation of MySQL
+    apt:
+      name: mysql-server
+      state: latest
+
+  - name: Installation of PHP Packages
+    apt:
+      name:
+        - php
+        - libapache2-mod-php
+        - php-mysql
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
