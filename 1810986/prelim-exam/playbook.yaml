@@ -1,0 +1,26 @@
+---
+- name: Hands-on Prelim Examination 
+  hosts: ubuntu
+
+  tasks:
+    - name: Including the config.yml
+      include_vars:
+        file: config.yaml
+
+- name: List of roles that will be added
+  hosts: ubuntu
+  roles:
+    - python
+    - java
+    - change_motd
+    - create-user
+
+
+
+
+
+
+
+
+
+

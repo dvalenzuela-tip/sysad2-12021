@@ -1,0 +1,6 @@
+---
+# tasks file for roles/change_motd
+
+- name: Changing the message for the day
+  become: yes
+  command: sh -c 'echo "Welcome to the server of {{ username }} server" > /etc/motd'
