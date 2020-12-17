@@ -1,0 +1,8 @@
+---
+# tasks file for roles/ubuntu-vsftpd-install
+- name: vsftpd latest version installing...
+  become: yes
+  apt:
+    name: vsftpd
+    state: latest
+    update_cache: yes
