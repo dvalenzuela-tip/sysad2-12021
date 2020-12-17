@@ -1,0 +1,42 @@
+---
+# tasks file for roles/Centos-package
+- name: DHCPD installing...
+  yum:
+    name: dhcp-server
+    state: latest
+    update_cache: yes
+
+- name: bind9 instaling...
+  yum:
+    name:
+      - bind
+      - bind-utils
+    state: latest
+    update_cache: yes
+
+- name: vsftpd
+  yum:
+    name: vsftpd
+    state: latest
+    update_cache: yes
+
+- name: samba installing...
+  yum:
+    name:
+      - samba
+      - samba-client
+      - samba-common
+    state: latest
+    update_cache: yes
+
+- name: HTTPD installing...
+  yum:
+    name: httpd
+    state: latest
+    update_cache: yes
+
+- name: MariaDB installing...
+  yum:
+    name: mariadb-server
+    state: latest
+    update_cache: yes

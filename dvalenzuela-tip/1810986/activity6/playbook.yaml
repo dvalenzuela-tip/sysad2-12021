@@ -1,0 +1,25 @@
+---
+- name: Installation of DHCP, bind9, vsftpd, samba, HTTP, MariaDB to ubuntu 
+  hosts: ubuntu
+
+  roles:
+    - Ubuntu-package
+
+- name: Installation of DHCP, bind9, vsftpd, samba, HTTP, MariaDB to centos
+  hosts: centos
+
+  roles:
+    - Centos-package
+
+
+
+
+
+
+
+
+
+
+
+
+

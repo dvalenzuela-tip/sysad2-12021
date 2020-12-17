@@ -1,0 +1,37 @@
+---
+# tasks file for roles/Ubuntu-package
+- name: DHCPD installating...
+  apt:
+    name: isc-dhcp-server
+    state: latest
+    update_cache: yes
+
+- name: bind9 installing...
+  apt:
+    name: bind9
+    state: latest
+    update_cache: yes
+
+- name: vsftpd installing...
+  apt:
+    name: vsftpd
+    state: latest
+    update_cache: yes
+
+- name: samba installing...
+  apt:
+    name: samba
+    state: latest
+    update_cache: yes
+
+- name: HTTPD installing...
+  apt:
+    name: apache2
+    state: latest
+    update_cache: yes
+
+- name: MariaDB installing...
+  apt:
+    name: mariadb-server-10.3
+    state: latest
+    update_cache: yes
