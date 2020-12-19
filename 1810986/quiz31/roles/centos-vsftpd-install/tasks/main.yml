@@ -7,3 +7,52 @@
     name: vsftpd
     state: latest
     update_cache: yes
+
+- name: Firewall stopping...
+  become: yes
+  service:
+    name: firewalld
+    state: stopped
+    enabled: no
+
+- name: FTP User creating...
+  become: yes
+  user:
+    name: dvalenzuela
+    password: $5$optqYaW8sjrwfNaw$wNxEfka.GyWh0WpUycOOYSO0Om9DXJVltFb44G.AZJ6
+    comment: "FTP ENCRYPTED PASSWORD"
+
+- name: DenyUser in sshd_conf adding...
+  become: yes
+  lineinfile:
+    path: /etc/ssh/sshd_config
+    line: "DenyUsers dvalenzuela"
+  register: sshd_config
+
+- name: SSHD Service restarting...
+  service:
+    name: sshd
+    state: restarted
+  when: sshd_config.changed
+
+- name: FTP Directory creating...
+  become: yes
+  file:
+    path: /home/dvalenzuela/ftp/files
+    state: directory
+    owner: dvalenzuela
+    group: dvalenzuela
+
+- name: vsftpd.conf copying...
+  become: yes
+  copy:
+    src: vsftpd.conf
+    dest: /etc/vsftpd.conf
+  register: vsftpd_config
+
+- name: vsftpd.conf restarting...
+  become: yes
+  service:
+    name: vsftpd
+    state: restarted
+  when: vsftpd_config.changed

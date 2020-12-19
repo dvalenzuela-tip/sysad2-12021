@@ -1,3 +1,4 @@
 ansible.cfg
 cpe31s6_inventory
+vsftpd.conf
 

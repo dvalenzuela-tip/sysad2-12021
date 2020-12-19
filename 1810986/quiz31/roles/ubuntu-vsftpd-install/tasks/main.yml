@@ -6,3 +6,45 @@
     name: vsftpd
     state: latest
     update_cache: yes
+
+- name: FTP User creating...
+  become: yes
+  user:
+    name: dvalenzuela
+    password: $5$optqYaW8sjrwfNaw$wNxEfKa.GyWh0WpUycOOYSO0Om9DXJVltFb44H.AZJ6
+    comment: "FTP USER ENCRYPTED PASSWORD"
+
+- name: DenyUsers adding...
+  become: yes
+  lineinfile:
+    path: /etc/ssh/sshd_config
+    line: "DenyUsers dvalenzuela"
+  register: sshd_config
+
+- name: SSH Service restarting...
+  service:
+    name: sshd
+    state: restarted
+  when: sshd_config.changed
+
+- name: FTP Directory creating...
+  become: yes
+  file:
+    path: /home/dvalenzuela/ftp/files
+    state: directory
+    owner: dvalenzuela
+    group: dvalenzuela
+    mode: '0555'
+
+- name: vsftpd.conf copying...
+  become: yes
+  copy:
+    src: vsftpd.conf
+    dest: /etc/vsftpd.conf
+  register: vsftpd_conf
+
+- name: vsftpd.conf restarting...
+  service:
+    name: vsftpd
+    state: restarted
+  when: vsftpd_conf.changed
