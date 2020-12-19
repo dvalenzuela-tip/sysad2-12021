@@ -1,0 +1,72 @@
+---
+- name: HTTP Server configuring and installing...
+  hosts: ubuntu
+
+  tasks:
+
+    - name: Apache2 installing...
+      apt:
+        name: apache2
+        state: latest
+
+    - name: Directory for the website creating...
+      file:
+        path: /var/www/dvalenzuela
+        state: directory
+        owner: nobody
+        group: nogroup
+
+    - name: Index.html including...
+      copy:
+        src: index.html
+        dest: /var/www/dvalenzuela
+
+    - name: Configuration file copying...
+      copy:
+        src: /etc/apache2/sites-available/000-default.conf
+        remote_src: yes
+        dest: /dvalenzuela.conf
+
+    - name: Configuration file adding...
+      copy:
+        src: /dvalenzuela.conf
+        remote_src: yes
+        dest: /etc/apache2/sites-available
+
+    - name: Configuration file editing...
+      replace:
+        path: /etc/apache2/sites-available/dvalenzuela.conf
+        regexp: '/var/www/html'
+        replace: '/var/www/dvalenzuela'
+
+    - name: Server name editing...
+      replace:
+        path: /etc/apache2/sites-available/dvalenzuela.conf
+        regexp: "#ServerName www.example.com"
+        replace: "ServerName www.dvalenzuela.com"
+
+    - name: Server admin editing...
+      replace:
+        path: /etc/apache2/sites-available/dvalenzuela.conf
+        regexp: "ServerAdmin webmaster@localhost"
+        replace: "ServerAdmin quiz32@dvalenzuela-tip.com"
+
+    - name: Virtual host activating...
+      command: a2ensite dvalenzuela.conf
+
+    - name: Apache server reloading...
+      service:
+        name: apache2
+        state: reloaded
+
+
+
+
+
+
+
+
+
+
+
+
