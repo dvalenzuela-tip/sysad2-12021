@@ -1,0 +1,59 @@
+---
+# tasks file for roles/Nagcore_instal
+- name: Required packages installing...
+  apt:
+    name:
+      - apache2
+      - libapache2-mod-php
+      - build-essential
+      - libgd-dev
+      - unzip
+    state: latest
+    update_cache: yes
+
+- name: Nagios group creating...
+  group:
+    name: nagios
+    state: present
+
+- name: Nagios groups creating...
+  group:
+    name: nagcmd
+    state: present
+
+- name: Nagios user creating...
+  user:
+    name: nagios
+    shell: /bin/bash
+    comment: nagios user
+    group: nagios
+    password: $5$V/EN5OVZ89t$T7FAQmzLIt5xMWBjZeT1G81lYTjflw/B3h9oPWPHNwA
+
+- name: User group of Nagios for external command adding...
+  user:
+    name: nagios
+    groups: nagcmd
+    append: yes
+
+- name: WWW-Data user group for the external command adding...
+  user:
+    name: www-data
+    groups: nagcmd
+    append: yes
+
+- name: Directory of downloads creating...
+  file:
+    path: /downloads
+    state: directory
+    owner: nobody
+    group: nogroup
+
+- name: Nagios downloading...
+  get_url:
+    url: http://prdownloads.sourceforge.net/sourceforge/nagios/nagios-4.2.1.tar.gz
+    dest: /downloads
+
+- name: Plugins downloading...
+  get_url:
+    url: https://nagios-plugins.org/download/nagios-plugins-2.3.3.tar.gz
+    dest: /downloads

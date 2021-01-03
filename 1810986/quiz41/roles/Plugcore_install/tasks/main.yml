@@ -1,0 +1,67 @@
+---
+# tasks file for roles/Plugcore_install
+
+- name: Nagios core extracting...
+  unarchive:
+    src: /downloads/nagios-4.2.1.tar.gz
+    dest: /downloads
+    remote_src: yes
+
+- name: Nagios script configuring...
+  shell: ./configure --with-command-group=nagcmd --with-command-group=nagcmd --with-httpd_conf=/etc/apache2/sites-enabled/
+  args:
+    chdir: /downloads/nagios-4.2.1
+
+- name: Nagios core compiling...
+  become: yes
+  make:
+    chdir: /downloads/nagios-4.2.1
+    target: all
+
+- name: Binaries installing...
+  make:
+    chdir: /downloads/nagios-4.2.1
+    target: all
+
+- name: Init script installing...
+  make:
+    chdir: /downloads/nagios-4.2.1
+    target: install-init
+
+- name: Configuration files sample installing...
+  make:
+    chdir: /downloads/nagios-4.2.1
+    target: install-config
+
+- name: Setting permissions installing...
+  make:
+    chdir: /downloads/nagios-4.2.1
+    target: install-commandmode
+
+- name: Web interface of Nagios installing...
+  make:
+    chdir: /downloads/nagios-4.2.1
+    target: install-webconf
+
+- name: PIP installing...
+  apt:
+    name: python3-pip
+    state: latest
+
+- name: Htpasswd module installing...
+  pip:
+    name: passlib
+    state: latest
+
+- name: Nagios admin account creating...
+  htpasswd:
+    path: /usr/local/nagios/etc/htpasswd.users
+    name: nagiosadmin
+    password: "dnvneil"
+    crypt_scheme: md5_crypt
+
+- name: Apache2 restaring...
+  service:
+    name: apache2
+    state: reloaded
+

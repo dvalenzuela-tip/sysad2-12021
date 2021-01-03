@@ -1,0 +1,26 @@
+---
+# tasks file for roles/Plugnag_install
+- name: Nagios Plugins extracting...
+  unarchive:
+    src: /downloads/nagios-plugins-2.3.3.tar.gz
+    dest: /downloads
+    remote_src: yes
+
+- name: Nagios Script Plugins configuring...
+  shell: ./configure --with-nagios-user=nagios --with-nagios-group=nagios
+  args:
+    chdir: /downloads/nagios-plugins-2.3.3
+
+- name: First Nagios Plugins compiling...
+  become: yes
+  make:
+    chdir: /downloads/nagios-plugins-2.3.3
+  
+
+- name: Second Nagios Plugins compiling...
+  make:
+    chdir: /downloads/nagios-plugins-2.3.3
+    target: install
+
+
+

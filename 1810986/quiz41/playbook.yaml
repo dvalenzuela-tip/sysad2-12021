@@ -1,0 +1,15 @@
+---
+- name: Installing the Plugins and Core of Nagios...
+  hosts: ubuntu
+  roles:
+    - Nagcore_install
+
+- name: Installing the Nagios Core...
+  hosts: ubuntu
+  roles:
+    - Plugcore_install
+
+- name: Installing the Plugins of Nagios...
+  hosts: ubuntu
+  roles:
+    - Plugnag_install
