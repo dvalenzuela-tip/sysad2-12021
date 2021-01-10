@@ -1,0 +1,85 @@
+---
+# tasks file for roles/centos_nagios
+- name: Centos dependencies installing...
+  become: yes
+  yum:
+    name:
+      - perl
+      - gcc
+      - glibc
+      - glibc-common
+      - unzip
+      - gd
+      - gd-devel
+      - postfix
+    state: present
+
+- name: Nagios adding group...
+  group:
+    name: "{{ group }}"
+    state: present
+
+- name: Nagios user adding...
+  user:
+    name: "{{ user1 }}"
+    group: "{{ group }}"
+
+- name: Nagios adding more user...
+  user:
+    name: "{{ user2 }}"
+    group: "{{ group }}"
+
+- name: Nagios installing...
+  unarchive:
+    src: https://assets.nagios.com/downloads/nagioscore/releases/nagios-4.4.5.tar.gz
+    dest: /tmp
+    remote_src: yes
+
+- name: Nagios configuring...
+  command: ./configure --with-command-group=nagiosxi
+  args:
+    chdir: /tmp/nagios-4.4.5
+
+- name: Clean via make...
+  make:
+    target: clean
+    chdir: /tmp/nagios-4.4.5
+
+- name: Make all...
+  make:
+    target: all
+    chdir: /tmp/nagios-4.4.5
+
+- name: Installing init via make...
+  make:
+    target: install-init
+    chdir: /tmp/nagios-4.4.5
+
+- name: Installing daemoninit via make...
+  make:
+    target: install-daemoninit
+    chdir: /tmp/nagios-4.4.5
+
+- name: Installing commandmode via make...
+  make:
+    target: install-commandmode
+    chdir: /tmp/nagios-4.4.5
+
+- name: Installing webconf via make...
+  become: yes
+  make:
+    target: install-webconf
+    chdir: /tmp/nagios-4.4.5
+
+- name: Passlib installing...
+  pip:
+    name: passlib
+
+- name: User creating in Nagios...
+  htpasswd:
+    path: /usr/local/nagios/etc/htpasswd.users
+    name: user
+    password: password
+
+
+

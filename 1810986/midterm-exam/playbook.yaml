@@ -1,0 +1,22 @@
+---
+- name: Process of Midterm Examination
+  hosts: centos
+  tasks:
+    - name: Config.yaml including...
+      include_vars:
+        file: config.yaml
+
+- name: Service monitor in Ubuntu installing...
+  hosts: ubuntu
+  roles:
+    - ubuntu_elk
+    - ubuntu_gpi
+    - ubuntu_lamp
+
+- name: Service monitor in Centos installing...
+  hosts: centos
+  roles:
+    - centos_elk
+    - centos_nagios
+    - centos_gpi
+    - centos_lamp
