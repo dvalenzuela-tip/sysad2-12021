@@ -1,0 +1,10 @@
+---
+- name: Ubuntu ELK installing...
+  hosts: ubuntu
+  roles:
+    - Ubuntu_ELK
+
+- name: Centos ELK installing...
+  hosts: centos
+  roles:
+    - Centos_ELK
