@@ -1,0 +1,22 @@
+---
+# tasks file for roles/ubuntu_grafana
+- name: Key on the package adding...
+  become: yes
+  apt_key:
+    url: https://packages.grafana.com/gpg.key
+    state: present
+
+- name: Grafana repository adding...
+  shell: echo "deb https://packages.grafana.com/oss/deb stable main" | sudo tee -a /etc/apt/sources.list.d/grafana.list
+
+- name: Ubuntu updating...
+  become: yes
+  apt:
+    upgrade: 'yes'
+    update_cache: yes
+
+- name: Grafana installing...
+  become: yes
+  apt:
+    name: grafana
+    state: present

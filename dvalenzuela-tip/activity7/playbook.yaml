@@ -1,0 +1,16 @@
+---
+- name: Elk, Nagios, Grafana + Prometheus for Ubuntu installing...
+  hosts: ubuntu
+  roles:
+   - ubuntu_elk
+   - ubuntu_nagios
+   - ubuntu_grafana
+   - ubuntu_prometheus
+
+- name: Elk, Nagios, Grafana + Prometheus for Centos installing...
+  hosts: centos
+  roles:
+    - centos_nagios
+    - centos_elk
+    - centos_grafana
+    - centos_prometheus
