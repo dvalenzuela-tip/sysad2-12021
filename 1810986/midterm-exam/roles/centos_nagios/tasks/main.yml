@@ -1,7 +1,6 @@
 ---
 # tasks file for roles/centos_nagios
 - name: Centos dependencies installing...
-  become: yes
   yum:
     name:
       - perl
