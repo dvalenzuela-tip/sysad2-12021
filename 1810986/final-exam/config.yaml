@@ -1,0 +1,17 @@
+#Main Variable
+prelim_exam: https://github.com/dvalenzuela-tip/sysad2-12021.git
+
+username: dvalenzuela-tip
+
+#ftp config
+writable_chroot: allow_writeable_chroot=YES
+ftp_config: "allow_writeable_chroot=YES\npasv_min_port=30000\npasv_max_port=31000\nuserlist_file=/etc/vsftpd/user_list\nuserlist_deny=NO"
+
+ftp_debian: "pasv_enable=Yes\npasv_min_port=10000\npasv_max_port=10100\nallow_writeable_chroot=YES\nssl_tlsv1=YES\nssl_sslv2=NO\nssl_sslv3=NO"
+
+user: ftpadmin
+ftp_pass: $5$darylpogi$b8P8cETsHuyRp1SxeTaCVNvZ31FrxTc5UVUFSVDyEd2
+
+#Nagios setup
+naguser_pass: $5$mahiraphulaan$SbO7ziUu.5EZynr4GiTxreodmB7PJpS58Odm/0HSDO1
+nagadmin_pass: mahiraphulaan

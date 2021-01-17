@@ -1,0 +1,96 @@
+---
+- name: Prelim-exam on Centos cloning...
+  hosts:
+    - centos
+  vars_files:
+    - config.yaml
+  roles:
+    - centos_clone
+
+- name: Centos Enterprise Service installing...
+  hosts:
+    - centos
+  vars_files:
+    - config.yaml
+  roles:
+    - ftp_centos
+
+- name: Centos Monitoring Service installing...
+  hosts:
+    - centos
+  vars_files:
+    - config.yaml
+  roles:
+    - centos_nagios
+
+- name: Centos MOTD changing...
+  hosts:
+    - centos
+  vars_files:
+    - config.yaml
+  roles:
+    - motd
+
+- name: Prelim-exam on Debian cloning...
+  hosts:
+    - debian
+  vars_files:
+    - config.yaml
+  roles:
+    - debian_clone
+
+- name: Debian Enterprise Service installing...
+  hosts:
+    - debian
+  vars_files:
+    - config.yaml
+  roles:
+    - ftp_debian
+
+- name: Debian Monitoring Service installng...
+  hosts:
+    - debian
+  vars_files:
+    - config.yaml
+  roles:
+    - debian_nagios
+
+- name: Debian MOTD changing...
+  hosts:
+    - debian
+  vars_files:
+    - config.yaml
+  roles:
+    - motd
+
+- name: Prelim-exam on OpenSUSE cloning...
+  hosts:
+    - suse
+  vars_files:
+    - config.yaml
+  roles:
+    - suse_clone
+
+- name: OpenSUSE Enterprise Service installing...
+  hosts:
+    - suse
+  vars_files:
+    - config.yaml
+  roles:
+    - ftp_suse
+
+- name: OpenSUSE Monitoring Service installing...
+  hosts:
+    - suse
+  vars_files:
+    - config.yaml
+  roles:
+    - suse_nagios
+
+- name: OpenSUSE MOTD changing...
+  hosts:
+    - suse
+  vars_files:
+    - config.yaml
+  roles:
+    - motd
