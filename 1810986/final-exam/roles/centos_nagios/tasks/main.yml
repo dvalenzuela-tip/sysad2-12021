@@ -46,7 +46,7 @@
 - name: Nagios user group for external command adding...
   user:
     name: nagios
-    group: nagcmd
+    groups: nagcmd
     append: yes
 
 - name: WWW-Data user group for external command adding...
